@@ -33,9 +33,10 @@ export async function POST(req) {
       ContentType: file.type,
     }));
 
-    const link = `https://${bucketName}.s3.amazonaws.com/${newFilename}`;
-
-    return Response.json(link);
-
+    await toast.promise(uploadPromise, {
+      loading: "Uploading...",
+      success: "Uploaded!",
+      error: "Upload error!",
+    })
   }
 }

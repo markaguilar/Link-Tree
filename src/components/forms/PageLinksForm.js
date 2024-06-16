@@ -2,13 +2,13 @@
 import {savePageLinks} from "@/actions/pageActions";
 import SubmitButton from "@/components/buttons/SubmitButton";
 import SectionBox from "@/components/layout/SectionBox";
-import {upload} from "@/libs/upload";
 import {faCloudArrowUp, faGripLines, faLink, faPlus, faSave, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import {useState} from "react";
 import toast from "react-hot-toast";
 import {ReactSortable} from "react-sortablejs";
+import {cloudinaryUpload} from "@/libs/cloudinaryUpload";
 
 export default function PageLinksForm({page,user}) {
   const [links,setLinks] = useState(page.links || []);
@@ -28,7 +28,7 @@ export default function PageLinksForm({page,user}) {
     });
   }
   function handleUpload(ev, linkKeyForUpload) {
-    upload(ev, uploadedImageUrl => {
+    cloudinaryUpload(ev, uploadedImageUrl => {
       setLinks(prevLinks => {
         const newLinks = [...prevLinks];
         newLinks.forEach((link,index) => {
